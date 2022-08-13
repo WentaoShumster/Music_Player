@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+    <title>Music Player</title>
+</head>
+
+<body>
+    <div class="form-creation">
+        <label class="label-text">Search</label>
+        <input id="song-search" class="label-input" type="text" name="song-search"><br><br>
+    </div>
+    <!--This is the music outside container containing all music elements-->
+    <div class="music-container" id="music-container">
+        <!-- This is the music information container which will display progress, song title and song times-->
+        <div class="music-info-container">
+            <h4 id="song-title"></h4>
+            <div class="progress-container" id="progress-container">
+                <div class="progress" id="progress"></div>
+                <div class="title time" id="currTime"></div>
+                <span>:</span>
+                <div class="title time" id="duraTime"></div>
+            </div>
+        </div>
+        <!-- Audio which will play music however source will be removed and added dynamically in JS-->
+        <audio id="audio"></audio>
+        <!-- Vinyl container will be edited into CSS and JS -->
+        <div class="img-container">
+            <img alt="music-cover" id="vinyl" />
+        </div>
+        <!-- control container-->
+        <div class="control">
+            <!-- Previous Button -->
+            <button id="prev" class="control-btn">
+            <i class="fas fa-backward"></i>
+        </button>
+            <!-- Play button will change with JS -->
+            <button id="play" class="control-btn control-btn-big">
+            <i class="fas fa-play"></i>
+        </button>
+            <!-- Forward Button -->
+            <button id="next" class="control-btn">
+            <i class="fas fa-forward"></i>
+        </button>
+            <!-- Volume Slider -->
+            <input type="range" id="volume-control">
+            <i class="fas fa-volume-up"></i>
+            <button id="random" class="control-btn">
+            <i class="fa fa-random"></i>
+        </button>
+        </div>
+    </div>
+    <div class="form-creation">
+        <form id="playlist_form" action="/create/playlist" method="post">
+            <label class="label-text" for="playlist_name">Name:</label>
+            <input maxlength="256" minlength="1" required class="label-input" type="text" name="playlist_name"><br><br>
+            <label class="label-text" for="playlist_name">Song:</label>
+            <input maxlength="256" minlength="1" required class="label-input" type="text" name="playlist_song"><br><br>
+            <button class="btn-link" type="submit">Create Playlist</button>
+        </form>
+    </div>
+    <script type="module" src="JS/variables.js"></script>
+    <script type="module" src="JS/Functions/playPause.js"></script>
+    <script type="module" src="JS/Functions/NextPrev.js"></script>
+    <script type="module" src="JS/Functions/progressBar.js"></script>
+    <script type="module" src="JS/Functions/volumeControl.js"></script>
+    <script type="module" src="JS/Functions/darkMode.js"></script>
+    <script type="module" src="JS/Functions/shuffle.js"></script>
+    <script type="module" src="JS/Functions/search.js"></script>
+    <script>
+        var songs = "<%= files %>"
+            //This is where the songs gets split up from the array 
+            //and iterates and removes the .mp3 from the end
+        songs = songs.split(',').map(song => {
+                return song.replace('.mp3', '')
+            })
+            //songs is defined global if you require the list of songs then you can call if from any .js file
+    </script>
+</body>
+
+</html>

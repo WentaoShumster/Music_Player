@@ -1,0 +1,283 @@
+/* Universal selctor adding in a box sizing of border box */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* body styling with linear gradient background instead of a still colour */
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(0deg, rgba(240, 160, 160)25%, rgba(255, 255, 255)100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+}
+
+
+/* music-container styling */
+
+.music-container {
+    display: flex;
+    position: relative;
+    margin: 100px;
+    padding: 20px 30px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 20px 20px 0 rgb(240, 160, 160);
+    z-index: 10;
+}
+
+
+/* img-container and image section */
+
+.img-container {
+    width: 110px;
+    position: relative;
+}
+
+.img-container img {
+    width: inherit;
+    object-fit: cover;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 110px;
+    border-radius: 50%;
+    /* Added in the CSS anmation */
+    animation: rotate 3s linear infinite;
+    animation-play-state: paused;
+}
+
+
+/* Using the after pseudo selector (requires content property however we are just 
+using it as an element) this is to creating the empty space in the vinyl */
+
+.img-container::after {
+    content: '';
+    height: 20px;
+    width: 20px;
+    left: 50%;
+    bottom: 100%;
+    border-radius: 50%;
+    background-color: white;
+    transform: translate(-50%, 50%);
+    position: absolute;
+}
+
+
+/* Used to make the animation class start and stop this class will be applied in JS*/
+
+.music-container.play .img-container img {
+    animation-play-state: running;
+}
+
+
+/* This is how the vinyl record animation is made */
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Controls Section */
+
+
+/* Controls container */
+
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+
+/* Control buttons styling */
+
+.control-btn,
+.fa-volume-up {
+    background-color: white;
+    border: 0;
+    color: lightgray;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 20px;
+}
+
+
+/* Volume up doesn't want to be clicked on so no cursor hover */
+
+.fa-volume-up {
+    padding: 0%;
+    margin: 0%;
+    cursor: default;
+}
+
+
+/* Makes the play/pause button in the middle slightly bigger
+(meaning more user focus) */
+
+.control,
+.control-btn-big {
+    color: rgb(156, 156, 156);
+    font-size: 30px;
+}
+
+
+/* Removes the outline from the buttons */
+
+.control-btn:focus {
+    outline: 0;
+}
+
+
+/* Volume controls rotate 270 so 
+100 is at the top and 0 is at the bottom */
+
+#volume-control {
+    transform: rotate(270deg);
+    width: 80px;
+    cursor: pointer;
+}
+
+
+/*  Music Info container section */
+
+
+/* Music information container has an animation 
+for popping up when music is playing however is hidden when music isn't playing */
+
+.music-info-container {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 90%;
+    padding: 10px 10px 10px 150px;
+    opacity: 0;
+    transform: translateY(0%);
+    transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+    z-index: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 15px 15px 0 0;
+}
+
+
+/* When the song is playing the info container will appear above */
+
+.music-container.play .music-info-container {
+    opacity: 1;
+    transform: translateY(-100%);
+}
+
+
+/* Song Title text no margin */
+
+.music-info h4 {
+    margin: 0;
+}
+
+
+/* Progress section for the progress bar */
+
+
+/* Progress container styling */
+
+.progress-container {
+    background: white;
+    border-radius: 5px;
+    margin: 10px 0;
+    height: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+/* This is the styling for the progress bar */
+
+.progress {
+    background-color: pink;
+    border-radius: 5px;
+    height: 100%;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+
+/* Styles for the time text */
+
+.time {
+    width: 50%;
+    display: inline;
+    position: relative;
+}
+
+
+/* DarkMode CSS */
+
+body.darkBody {
+    background-image: linear-gradient( 0deg, rgba(247, 247, 247, 0.384) 23.8%, rgba(252, 221, 221, 0.301) 92%);
+    background-image: -webkit-linear-gradient( 0deg, rgba(247, 247, 247, 0.384) 23.8%, rgba(252, 221, 221, 0.301) 92%);
+    background-color: black;
+}
+
+.music-container.darkMode {
+    box-shadow: 0 20px 20px 0 whitesmoke;
+}
+
+.progress-container.darkMode {
+    box-shadow: 0 20px 20px 0 whitesmoke;
+}
+
+.darkMode {
+    background-color: rgb(31, 30, 30);
+    color: white;
+}
+
+
+/* Playlist Creations form CSS */
+
+.form-creation {
+    background: white;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.label-text {
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+input[type=text]:focus {
+    background-color: lightblue;
+}
+
+.btn-link {
+    text-align: center;
+    align-content: center;
+    margin: 0;
+    background-color: pink;
+    border-radius: 5px;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.label-input {
+    width: -webkit-fill-available;
+}
